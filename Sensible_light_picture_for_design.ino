@@ -21,7 +21,7 @@ const uint8_t pir_pin = 2;
 const uint8_t led_pin = 3;
 
 const uint8_t brightness_step_ms = 6;
-const uint16_t light_timeout = 10000;
+const uint16_t light_timeout = 0;
 
 void quadratic(int pin, uint8_t value) {
   analogWrite(pin, map((uint16_t)(value) * value, 0, 65025, 0, 255));
@@ -42,8 +42,7 @@ void loop() {
     light_on_start = millis();
     brightness_target = 255;
   }
-
-  if (millis() - light_on_start >= light_timeout)
+  else if (millis() - light_on_start >= light_timeout)
     brightness_target = 0;
 
   if (brightness_target > brightness_cur)
